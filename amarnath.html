@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Starter Web Page</title>
+  <meta name="description" content="A clean, responsive single-file starter webpage with a hero, features, gallery, and contact form. Just save as index.html and open.">
+  <style>
+    :root {
+      --bg: #0b1324;
+      --card: #111a33;
+      --text: #e7ebf3;
+      --muted: #a9b1c7;
+      --accent: #6aa6ff;
+      --accent-2: #7cf0bd;
+      --ring: rgba(106,166,255,.45);
+    }
+    [data-theme="light"]{
+      --bg:#f7f9fc;--card:#ffffff;--text:#0c1222;--muted:#5a657b;--accent:#2b6cff;--accent-2:#0ea676;--ring:rgba(43,108,255,.35)
+    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body {
+      margin: 0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(122,185,255,.10), transparent 60%),
+                  radial-gradient(1200px 600px at 110% 10%, rgba(124,240,189,.10), transparent 60%), var(--bg);
+      color: var(--text);
+    }
+    a { color: var(--accent); text-decoration: none }
+    a:hover { text-decoration: underline }
+    .container { width: min(1100px, 92%); margin: 0 auto }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(10px);
+      background: linear-gradient(to bottom, color-mix(in oklab, var(--bg) 85%, transparent), transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--card) 75%, transparent);
+    }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 0 }
+    .brand { display:flex; gap:10px; align-items:center; font-weight:700 }
+    .logo { width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 6px 18px rgba(0,0,0,.25) }
+    .nav a { margin-left: 18px }
+    .btn { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius: 14px; border:1px solid color-mix(in oklab, var(--text) 10%, transparent); background: color-mix(in oklab, var(--card) 92%, transparent); color:var(--text); cursor:pointer; transition: transform .05s ease, box-shadow .2s ease }
+    .btn:hover { box-shadow: 0 6px 14px rgba(0,0,0,.25) }
+    .btn:active { transform: translateY(1px) }.hero { padding: 72px 0 40px; display:grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items:center }
+.hero h1 { font-size: clamp(28px, 4vw, 54px); line-height:1.1; margin: 0 0 14px }
+.hero p { margin: 0 0 20px; color: var(--muted) }
+.card { background: linear-gradient(180deg, color-mix(in oklab, var(--card) 95%, transparent), color-mix(in oklab, var(--card) 88%, transparent)); border:1px solid color-mix(in oklab, var(--text) 8%, transparent); border-radius: 22px; padding: 22px; box-shadow: 0 10px 24px rgba(0,0,0,.18) }
+.code-slab { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 14px; background: #0a0f1f; color:#d8e2ff; padding: 16px; border-radius: 14px; overflow:auto; max-height: 300px }
+.row { display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px }
+
+.pill { display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid color-mix(in oklab, var(--text) 12%, transparent); background: color-mix(in oklab, var(--card) 88%, transparent); color: var(--muted); font-weight:600; font-size:12px }
+
+.features { padding: 30px 0 }
+.feature { padding: 18px }
+.feature h3 { margin: 6px 0 8px }
+.feature p { color: var(--muted); margin: 0 }
+
+.gallery { padding: 28px 0; display:grid; grid-template-columns: repeat(12, 1fr); gap: 14px }
+.tile { grid-column: span 4; height: 140px; border-radius: 18px; overflow: hidden; background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 45%, transparent), color-mix(in oklab, var(--card) 70%, transparent)); position: relative }
+.tile:nth-child(2) { grid-column: span 8 }
+.tile:nth-child(5) { grid-column: span 6; height: 200px }
+.tile img { width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.1) contrast(1.03) }
+
+form { display:grid; gap: 12px }
+input, textarea { width:100%; padding:12px 14px; border-radius: 14px; border:1px solid color-mix(in oklab, var(--text) 10%, transparent); background: color-mix(in oklab, var(--card) 90%, transparent); color: var(--text) }
+input:focus, textarea:focus { outline: 3px solid var(--ring); border-color: transparent }
+.grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 12px }
+
+footer { margin-top: 40px; padding: 28px 0; color: var(--muted); border-top: 1px solid color-mix(in oklab, var(--text) 8%, transparent) }
+
+@media (max-width: 900px){ .hero { grid-template-columns: 1fr } .row { grid-template-columns: 1fr } .tile { grid-column: span 12; height: 160px } }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand"><div class="logo" aria-hidden="true"></div> <span>MySite</span></div>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <button class="btn" id="themeToggle" aria-pressed="false" title="Toggle theme">🌗 Theme</button>
+      </nav>
+    </div>
+  </header>  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <span class="pill">Single-file • Ready to run</span>
+        <h1>Build your page fast 🚀</h1>
+        <p>A clean, responsive starter with modern CSS, a feature grid, a small gallery, and a working contact form (no backend required for demo).</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a href="#contact" class="btn">Get Started</a>
+          <button class="btn" id="copySnippet">Copy Starter Snippet</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="pill">index.html</div>
+        <pre class="code-slab" id="snippet">&lt;section class="card"&gt;
+  &lt;h2&gt;Hello World&lt;/h2&gt;
+  &lt;p&gt;Replace this with your content. This starter already works offline.&lt;/p&gt;
+&lt;/section&gt;</pre>
+        <small id="copyMsg" aria-live="polite"></small>
+      </div>
+    </section><!-- Features -->
+<section id="features" class="features">
+  <div class="row">
+    <article class="card feature">
+      <h3>Responsive layout</h3>
+      <p>Grid-based sections scale from mobile to desktop automatically.</p>
+    </article>
+    <article class="card feature">
+      <h3>Accessible</h3>
+      <p>Clear focus states, semantic HTML, and high contrast by default.</p>
+    </article>
+    <article class="card feature">
+      <h3>Zero setup</h3>
+      <p>Save this as <code>index.html</code> and open it in your browser.</p>
+    </article>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section id="gallery" class="gallery">
+  <figure class="tile"><img alt="Abstract gradient" src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1200&auto=format&fit=crop"/></figure>
+  <figure class="tile"><img alt="Soft colors" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1600&auto=format&fit=crop"/></figure>
+  <figure class="tile"><img alt="Neon" src="https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=1200&auto=format&fit=crop"/></figure>
+  <figure class="tile"><img alt="Shapes" src="https://images.unsplash.com/photo-1536063211352-0b94219f6214?q=80&w=1200&auto=format&fit=crop"/></figure>
+  <figure class="tile"><img alt="Gradient 2" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1600&auto=format&fit=crop"/></figure>
+</section>
+
+<!-- Contact form (demo) -->
+<section id="contact" class="card" aria-labelledby="contactTitle">
+  <h2 id="contactTitle">Contact</h2>
+  <form id="contactForm" novalidate>
+    <div class="grid-2">
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" required placeholder="Your name"/>
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" required placeholder="you@example.com"/>
+      </label>
+    </div>
+    <label>
+      <span>Message</span>
+      <textarea name="message" rows="4" required placeholder="Write something..."></textarea>
+    </label>
+    <button class="btn" type="submit">Send</button>
+    <small id="formMsg" aria-live="polite"></small>
+  </form>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© <span id="year"></span> MySite • Built with ♥ in a single HTML file.</p>
+  </div>
+</footer>
+
+  </main>  <script>
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+      toggle.setAttribute('aria-pressed', String(!isLight));
+      localStorage.setItem('theme', isLight ? 'dark' : 'light');
+    });
+    (function(){
+      const saved = localStorage.getItem('theme');
+      if(saved) { document.documentElement.setAttribute('data-theme', saved); toggle.setAttribute('aria-pressed', String(saved==='light')); }
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+
+    // Copy snippet
+    document.getElementById('copySnippet').addEventListener('click', async () => {
+      const code = document.getElementById('snippet').innerText;
+      try {
+        await navigator.clipboard.writeText(code);
+        document.getElementById('copyMsg').textContent = 'Copied to clipboard!';
+      } catch (e) {
+        document.getElementById('copyMsg').textContent = 'Copy failed. Select and copy manually.';
+      }
+    });
+
+    // Demo form handling (no backend)
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      // Simple client-side validation
+      const errors = [];
+      if(!data.name || data.name.trim().length < 2) errors.push('Please enter your name.');
+      if(!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.push('Please enter a valid email.');
+      if(!data.message || data.message.trim().length < 4) errors.push('Please write a short message.');
+
+      const msg = document.getElementById('formMsg');
+      if(errors.length){
+        msg.textContent = errors.join(' ');
+        msg.style.color = 'salmon';
+        return;
+      }
+
+      // Fake "send"
+      msg.textContent = 'Thanks, ' + data.name + '! Your message was captured locally for this demo.';
+      msg.style.color = 'var(--accent-2)';
+      form.reset();
+    });
+  </script></body>
+</html>
